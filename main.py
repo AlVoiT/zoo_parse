@@ -2,23 +2,27 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 import time
-import concurrent.futures
+
 
 CSV = 'DATAEST.csv'
 HOST = 'https://epicentrk.ua'
 URL = 'https://epicentrk.ua/ua/brands/estares.html'
 PAGE = '?PAGEN_1='
 HEADERS = {
-    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
-}
-def pars_URL(url):
+    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/\
+               avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\
+                  (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
+    }
+
+
+def pars_URL(url: str) -> list:
     soup = BeautifulSoup(get_html(url).text, 'html.parser')
     list_groups1 = soup.find_all('a', class_="shop-category__list-title link link--inverted nc", href=True)
     list_groups = [a['href'] for a in list_groups1]
     return list_groups
 
-def get_html(url):#fucn
+def get_html(url: str) -> Response:
     response = requests.get(url, headers=HEADERS)
     return response
 
