@@ -19,7 +19,10 @@ headers = {'accept': 'application/json',
 print(headers)
 r = session.get('https://www.zooplus.de/tierarzt/api/v2/results?animal_99=true&page=1&from=0&size=20', headers=headers)
 
-print(r.text)
+gg = (r.json()['results'][0])
+gg = dict(gg)
+gg = gg['email']
+print(gg)
 
 
 # with open('test.json', 'w') as f:
