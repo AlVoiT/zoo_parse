@@ -14,7 +14,7 @@ COLUMNS = ['address', 'behandlung', 'brands_txt', 'brand_others_txt', 'breadcrum
            ]
 
 
-def get_api_data(page: int, columns: list) -> list:
+def get_api_data(page: int, count: int, columns: list) -> list:
 
     session = requests.Session()
     token_resp = session.get('https://www.zooplus.de/tierarzt/api/v2/token?debug=authReduxMiddleware-tokenIsExpired')
@@ -22,7 +22,7 @@ def get_api_data(page: int, columns: list) -> list:
     headers = {'accept': 'application/json',
                'authorization': f'Bearer {token}'
                }
-    params = {'animal_99': 'true', 'page': str(page)}
+    params = {'animal_99': 'true', 'page': str(page), 'from': str(count), 'size': '20'}
     resp = session.get('https://www.zooplus.de/tierarzt/api/v2/results', headers=headers, params=params)
     api_data = resp.json()['results']
 
@@ -54,7 +54,9 @@ def csv_record(item: dict, field: list, path: str | None = 'example.csv') -> Non
 def main():
     csv_header(field=COLUMNS, path=CSV)
     for page in range(1, PAGE+1):
-        data = get_api_data(page=page, columns=COLUMNS)
+        size = page * 20
+        count = range(0, size+1, 20)[page-1]
+        data = get_api_data(page=page, count=count, columns=COLUMNS)
         for row in data:
             csv_record(item=row, field=COLUMNS, path=CSV)
 
