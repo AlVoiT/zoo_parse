@@ -6,17 +6,6 @@ import csv
 import time
 
 
-# CSV = 'DATA.csv'
-# PAGE = 3
-# COLUMNS = [
-#     'address', 'behandlung', 'brands_txt', 'brand_others_txt', 'breadcrumb', 'count_reviews',
-#     'avg_review_score', 'city', 'city_slug_txt', 'id', 'is_profile_linked', 'keywords', 'lat',
-#     'lng', 'location', 'name', 'open_time', 'paymentmethods_txt', 'parkingoptions_txt',
-#     'profile_image', 'schwerpunkt', 'reviews_nest', 'slug', 'telefon', 'wheelchair_accessible_txt',
-#     'zip', '_last_index_update_date'
-# ]
-
-
 def get_api_data(page: int, size: int) -> list:
     """
     Sends a GET request with token for getting API data.
