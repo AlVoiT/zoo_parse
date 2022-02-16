@@ -37,7 +37,7 @@ def create_df(page: int) -> pd.DataFrame:
 
 def main():
 
-    create_df(3).to_csv(CSV)
+    create_df(3).to_csv(CSV, index=False)
 
 
 if __name__ == '__main__':
